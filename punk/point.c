@@ -1,9 +1,5 @@
 #include <stdio.h>
-
-void ref_pass();
-void point_pass();
-int * return_point();
-int point_func(int x, int y);
+#include "point.h"
 
 /**
  * 指针的操作
@@ -57,10 +53,10 @@ int main()
     //引用传递和指针传递
     int n1 = 100;
     int n2 = 100;
-    ref_pass(n1);
-    point_pass(&n2);
-    printf("param of ref_pass(): %d\n", n1);
-    printf("param of point_pass(): %d\n", n2);
+    pass_ref(n1);
+    pass_point(&n2);
+    printf("param of pass_ref(): %d\n", n1);
+    printf("param of pass_point(): %d\n", n2);
     printf("\n");
 
     //函数返回指针
@@ -71,32 +67,50 @@ int main()
     printf("\n");
 
     //函数指针
-    int (*p5)() = &point_func;
+    int (*p5)() = &func_point;
     printf("invoke p5 return: %d\n", p5(1, 2));
     printf("\n");
 
-    return 0;
+    //void指针
+    char p6[] = "123";
+    int p7 = 456;
+    void_point(&p6, 1);
+    void_point(&p7, 2);
+    printf("\n");
 }
 
-//引用传递
-void ref_pass(int n)
+void pass_ref(int n)
 {
     ++n;
 }
 
-//指针传递
-void point_pass(int *n)
+void pass_point(int *n)
 {
     ++*n;
 }
 
-//返回指针
 int *return_point()
 {
     static int n = 200;
     return &n;
 }
 
-int point_func(int x, int y) {
+int func_point(int x, int y)
+{
     return x + y;
+}
+
+void void_point(void *value, int type)
+{
+    switch (type) {
+        case 1:
+            printf("value is %s\n", (char *) value);
+            break;
+        case 2:
+            printf("value is %d\n", *((int *) value));
+            break;
+        default:
+            printf("type is not match!\n");
+            break;
+    }
 }

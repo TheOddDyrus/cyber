@@ -34,7 +34,4 @@ int main()
     printf("point of gi in str6: %p", p);
     printf("\n");
     printf("value of gi in str6: %c", *p);
-
-    return 0;
-
 }
